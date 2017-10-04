@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, StyleSheet, Alert, KeyboardAvoidingView } from 'react-native';
+import { connect } from 'react-redux';
 import Button from './common/Button';
 import { submitNewDeck } from '../utils/api';
 import { stringIsEmpty } from '../utils/helpers';
+import { loadAllDecks } from '../actions';
 
 class NewDeck extends Component {
   state = {
@@ -19,10 +21,9 @@ class NewDeck extends Component {
     } else {
       submitNewDeck(deckName);
       this.clearFields();
+      this.props.loadAllDecks();
       this.props.navigation.navigate('Home' );
     }
-
-    //if
   }
 
   render() {
@@ -59,4 +60,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default NewDeck;
+export default connect( null, { loadAllDecks }) (NewDeck);

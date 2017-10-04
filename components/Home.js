@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import { getDecks } from '../utils/api';
 import { loadAllDecks } from '../actions';
+import { sortString } from '../utils/helpers';
+import CardDeck from './CardDeck';
 
 class Home extends Component {
   state = {
@@ -10,22 +12,45 @@ class Home extends Component {
   }
 
   componentWillMount() {
-    this.setState({ loading: true });
+    //this.setState({ loading: true });
   }
 
   componentDidMount() {
     this.props.loadAllDecks()
-    //.then(this.setState({ loading: false}));
+  //  .then(this.setState({ loading: false}));
   }
+
+  renderItem = ({ item }) => (
+    <CardDeck
+      deckName={item.title}
+      qtdCards={item.questions.length}
+    />
+  )
+
+   _keyExtractor = (item, index) => item.title;
 
   render() {
     // if (this.state.loading) {
-    //     return <ActivityIndicator style={{ marginTop: 30 }} />
+    //   return <ActivityIndicator style={{ marginTop: 30 }} />
     // }
+
+    const { allDecks } = this.props.decks;
+    const arrDecks = Object.values(allDecks);
+
+
+    arrDecks.sort((a,b) => a.title.localeCompare(b.title));
+
+    console.log(Object.values(allDecks));
 
     return(
       <View style={styles.container}>
-        <Text>HOME</Text>
+        {allDecks &&
+          <FlatList
+            data={arrDecks}
+            keyExtractor={this._keyExtractor}
+            renderItem={this.renderItem}
+          />
+        }
       </View>
     );
   }
@@ -33,12 +58,13 @@ class Home extends Component {
 
 }
 
+const mapStateToProps = ({ decks }) => ({ decks });
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    paddingTop: 20
   }
 })
 
-export default connect( null, { loadAllDecks })(Home);
+export default connect( mapStateToProps, { loadAllDecks })(Home);
