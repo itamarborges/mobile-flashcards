@@ -1,16 +1,16 @@
 import React   from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-export default function CardDeck({ deckName, qtdCards, onPress }){
+export default function CardDeck({ title, qtdCards, onPress }){
 
   const { containerStyle, textStyle, titleTextStyle } = styles;
 
   return (
     <TouchableOpacity style={containerStyle} onPress={onPress} >
-      <Text style={titleTextStyle}>{deckName}</Text>
+      <Text style={titleTextStyle}>{title}</Text>
       <Text style={textStyle}>{qtdCards === 1
-                               ? '1 question'
-                               : `${qtdCards} questions`}</Text>
+                               ? '1 card'
+                               : `${qtdCards} cards`}</Text>
     </TouchableOpacity>
   )
 }

@@ -3,23 +3,23 @@ import { View, Text, TextInput, StyleSheet, Alert, KeyboardAvoidingView } from '
 import { connect } from 'react-redux';
 import Button from './common/Button';
 import { submitNewDeck } from '../utils/api';
-import { stringIsEmpty } from '../utils/helpers';
+import * as Helper from '../utils/helpers';
 import { loadAllDecks } from '../actions';
 
 class NewDeck extends Component {
   state = {
-    deckName: ''
+    title: ''
   }
 
-  clearFields = () => this.setState({ deckName: ''});
+  clearFields = () => this.setState({ title: ''});
 
   submitNewDeck = () => {
-    const { deckName } = this.state;
+    const { title } = this.state;
 
-    if (stringIsEmpty(deckName)) {
+    if (Helper.stringIsEmpty(title)) {
       Alert.alert('You must fill the name for a new deck!');
     } else {
-      submitNewDeck(deckName);
+      submitNewDeck(title);
       this.clearFields();
       this.props.loadAllDecks();
       this.props.navigation.navigate('Home' );
@@ -35,11 +35,11 @@ class NewDeck extends Component {
 
         <Text style={{ fontSize: 20, marginBottom: 20 }}>What is the title of your new deck?</Text>
         <TextInput
-          value={this.state.deckName}
+          value={this.state.title}
           autoCorrect={false}
           style={{height: 40, marginBottom: 20}}
           placeholder="Type the name of your new deck"
-          onChangeText={(deckName) => this.setState({deckName})}
+          onChangeText={(title) => this.setState({title})}
         />
       <Button onPress={this.submitNewDeck}>
         SUBMIT

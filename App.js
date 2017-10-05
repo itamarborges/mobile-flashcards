@@ -7,12 +7,14 @@ import ReduxThunk from 'redux-thunk';
 import { FontAwesome } from '@expo/vector-icons';
 import Home from './components/Home';
 import NewDeck from './components/NewDeck';
+import Deck from './components/Deck';
 import reducer from './reducers';
 
 const Tabs = TabNavigator({
   Home: {
     screen: Home,
     navigationOptions: {
+      title: 'Home',
       tabBarLabel: 'Home',
       tabBarIcon: ({ tintColor }) => <FontAwesome name='home' size={30} color={tintColor} />
     }
@@ -44,6 +46,9 @@ const Tabs = TabNavigator({
 const MainNavigator = StackNavigator({
   Main: {
     screen: Tabs,
+  },
+  Deck: {
+    screen: Deck,
   }
 });
 

@@ -20,10 +20,19 @@ class Home extends Component {
   //  .then(this.setState({ loading: false}));
   }
 
+  pressDeck = (item) => {
+    this.props.navigation.navigate(
+        'Deck',
+        { title: item.title }
+      )
+  }
+
+
   renderItem = ({ item }) => (
     <CardDeck
-      deckName={item.title}
+      title={item.title}
       qtdCards={item.questions.length}
+      onPress={() => this.pressDeck(item)}
     />
   )
 
