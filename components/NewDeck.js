@@ -7,6 +7,15 @@ import * as Helper from '../utils/helpers';
 import { loadAllDecks } from '../actions';
 
 class NewDeck extends Component {
+
+  static navigationOptions = ({ navigation }) => {
+    const title = navigation.state.params && navigation.state.params.title;
+
+    return{
+      title: `Add Card - ${title}`
+    }
+  }
+
   state = {
     title: ''
   }

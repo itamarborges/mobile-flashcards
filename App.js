@@ -7,6 +7,7 @@ import ReduxThunk from 'redux-thunk';
 import { FontAwesome } from '@expo/vector-icons';
 import Home from './components/Home';
 import NewDeck from './components/NewDeck';
+import NewCard from './components/NewCard';
 import Deck from './components/Deck';
 import reducer from './reducers';
 
@@ -27,6 +28,7 @@ const Tabs = TabNavigator({
     }
   },
 }, {
+  tabBarPosition: 'bottom',
   navigationOptions: {
     header: null
   },
@@ -47,9 +49,8 @@ const MainNavigator = StackNavigator({
   Main: {
     screen: Tabs,
   },
-  Deck: {
-    screen: Deck,
-  }
+  DeckFlow: { screen: Deck},
+  NewCard: { screen: NewCard}
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

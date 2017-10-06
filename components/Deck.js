@@ -1,19 +1,48 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import Button from './common/Button';
 
 class Deck extends Component {
+  static navigationOptions = ({ navigation }) => {
+    const { title } = navigation.state.params;
+
+    return{
+      title: `Deck - ${title}`
+    }
+  }
+
+  state = {
+    deck: null
+  }
+
+  startQuiz = () => {
+    const { deck } = this.state;
+
+    if (deck.questions.length === 0) {
+      return Alert.alert('You must add a card first!');
+    }
+  }
+
+  newCard = () => {
+    const { title } = this.props.navigation.state.params;
+
+    this.props.navigation.navigate(
+        'NewCard',
+        { title }
+      )
+  }
+
+  componentWillMount() {
+    const { allDecks } = this.props.decks;
+    const { title } = this.props.navigation.state.params;
+
+    this.setState({deck : allDecks[title]});
+  }
 
   render() {
     const { containerStyle, textStyle, titleTextStyle, btnStyle } = styles;
-    const { title } = this.props.navigation.state.params;
-
-
-    const { allDecks } = this.props.decks;
-    const deck = allDecks[title];
-
-    console.log('teste '+ this.opa);
+    const { deck } = this.state;
 
     return (
       <View style={containerStyle}>
@@ -21,10 +50,10 @@ class Deck extends Component {
         <Text style={textStyle}>{deck.questions.length === 1
                                  ? '1 card'
                                  : `${deck.questions.length} cards`}</Text>
-        <Button btnStyle={btnStyle}>
+        <Button btnStyle={btnStyle} onPress={this.newCard}>
           Add Card
         </Button>
-        <Button btnStyle={btnStyle}>
+        <Button btnStyle={btnStyle} onPress={this.startQuiz}>
           Start Quiz
         </Button>
 

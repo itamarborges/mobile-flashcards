@@ -22,7 +22,7 @@ class Home extends Component {
 
   pressDeck = (item) => {
     this.props.navigation.navigate(
-        'Deck',
+        'DeckFlow',
         { title: item.title }
       )
   }
