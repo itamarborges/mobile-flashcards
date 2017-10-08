@@ -22,7 +22,7 @@ class Home extends Component {
 
   pressDeck = (item) => {
     this.props.navigation.navigate(
-        'DeckFlow',
+        'Deck',
         { title: item.title }
       )
   }
@@ -46,10 +46,7 @@ class Home extends Component {
     const { allDecks } = this.props.decks;
     const arrDecks = Object.values(allDecks);
 
-
     arrDecks.sort((a,b) => a.title.localeCompare(b.title));
-
-    console.log(Object.values(allDecks));
 
     return(
       <View style={styles.container}>

@@ -1,5 +1,6 @@
 import {
-  LOAD_DECKS
+  LOAD_DECKS,
+  ADD_DECK
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -7,12 +8,19 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-    switch (action.type) {
-      case LOAD_DECKS:
+  switch (action.type) {
+    case LOAD_DECKS:
+      return { ...state,
+        allDecks: action.decks
+      };
+      case ADD_DECK:
         return { ...state,
-          allDecks: action.decks
+          allDecks: {
+            ...state['allDecks'],
+            [action.deck.title]: action.deck
+          }
         };
       default:
         return state;
-      }
-};
+    }
+  }

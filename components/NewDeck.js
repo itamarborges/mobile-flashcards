@@ -4,17 +4,9 @@ import { connect } from 'react-redux';
 import Button from './common/Button';
 import { submitNewDeck } from '../utils/api';
 import * as Helper from '../utils/helpers';
-import { loadAllDecks } from '../actions';
+import { newDeck } from '../actions';
 
 class NewDeck extends Component {
-
-  static navigationOptions = ({ navigation }) => {
-    const title = navigation.state.params && navigation.state.params.title;
-
-    return{
-      title: `Add Card - ${title}`
-    }
-  }
 
   state = {
     title: ''
@@ -28,9 +20,10 @@ class NewDeck extends Component {
     if (Helper.stringIsEmpty(title)) {
       Alert.alert('You must fill the name for a new deck!');
     } else {
-      submitNewDeck(title);
+
+      this.props.newDeck(title);
       this.clearFields();
-      this.props.loadAllDecks();
+
       this.props.navigation.navigate('Home' );
     }
   }
@@ -69,4 +62,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default connect( null, { loadAllDecks }) (NewDeck);
+export default connect( null, { newDeck }) (NewDeck);

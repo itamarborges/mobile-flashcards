@@ -2,29 +2,51 @@ import React, { Component } from 'react';
 import { View, Text, TextInput, StyleSheet, Alert, KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
 import Button from './common/Button';
-import { submitnewCard } from '../utils/api';
+import { submitNewCard } from '../utils/api';
 import * as Helper from '../utils/helpers';
 import { loadAllDecks } from '../actions';
 
 class newCard extends Component {
+  constructor(props) {
+    super(props);
+    this.title = props.navigation.state.params && props.navigation.state.params.title;
+  }
+
+
+  static navigationOptions = ({ navigation }) => {
+    const { title }  = navigation.state.params;
+    return{
+      title: `Add Card - ${title}`
+    }
+  }
+
   state = {
     question: '',
     answer: '',
   }
 
-  clearFields = () => this.setState({ title: ''});
+  clearFields = () => this.setState({ question: '', answer: ''});
 
   submitnewCard = () => {
-    const { title } = this.state;
+    const { question, answer } = this.state;
 
-    if (Helper.stringIsEmpty(title)) {
-      Alert.alert('You must fill the name for a new deck!');
-    } else {
-      submitnewCard(title);
-      this.clearFields();
-      this.props.loadAllDecks();
-      this.props.navigation.navigate('Home' );
+    if (Helper.stringIsEmpty(question)) {
+      Alert.alert('You must type a question for a new card!');
+      return;
     }
+
+    if (Helper.stringIsEmpty(answer)) {
+      Alert.alert('You must type an answer for your question!');
+      return;
+    }
+
+    submitNewCard(this.title, question, answer);
+    this.clearFields();
+
+    this.props.navigation.navigate(
+        'Deck',
+        { title: this.title }
+      )
   }
 
   render() {

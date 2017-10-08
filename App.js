@@ -49,7 +49,7 @@ const MainNavigator = StackNavigator({
   Main: {
     screen: Tabs,
   },
-  DeckFlow: { screen: Deck},
+  Deck: { screen: Deck},
   NewCard: { screen: NewCard}
 });
 

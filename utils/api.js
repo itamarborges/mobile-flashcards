@@ -2,18 +2,27 @@ import { AsyncStorage } from 'react-native';
 
 export const DECKS_STORAGE_KEY = 'MobileFlashcards:deck';
 
-function createNewDeck(name) {
+function createNewCard(question, answer) {
   return {
-    title: (name),
-    questions: []
+    question,
+    answer
   }
 }
-export function submitNewDeck(name) {
+export function submitNewDeck(deck) {
   return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
-    [name]: createNewDeck(name),
+    [deck.title]: deck,
   }));
 }
 export function getDecks() {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY)
     .then(res => JSON.parse(res));
+}
+
+export function submitNewCard(title, question, answer) {
+  const card = createNewCard(question, answer);
+  getDecks()
+  .then( decks => {
+    decks[title].questions.push(card);
+    AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify(decks))
+  });
 }
