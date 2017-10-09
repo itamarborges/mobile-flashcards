@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import { View, Text, TextInput, StyleSheet, Alert, KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
 import Button from './common/Button';
-import { submitNewCard } from '../utils/api';
 import * as Helper from '../utils/helpers';
-import { loadAllDecks } from '../actions';
+import { newCard } from '../actions';
 
-class newCard extends Component {
+class NewCard extends Component {
   constructor(props) {
     super(props);
     this.title = props.navigation.state.params && props.navigation.state.params.title;
@@ -14,9 +13,8 @@ class newCard extends Component {
 
 
   static navigationOptions = ({ navigation }) => {
-    const { title }  = navigation.state.params;
     return{
-      title: `Add Card - ${title}`
+      title: `Add Card`
     }
   }
 
@@ -40,13 +38,10 @@ class newCard extends Component {
       return;
     }
 
-    submitNewCard(this.title, question, answer);
+    this.props.newCard(this.title, question, answer);
     this.clearFields();
 
-    this.props.navigation.navigate(
-        'Deck',
-        { title: this.title }
-      )
+    this.props.navigation.goBack();
   }
 
   render() {
@@ -110,4 +105,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default connect( null, { loadAllDecks }) (newCard);
+export default connect( null, { newCard }) (NewCard);

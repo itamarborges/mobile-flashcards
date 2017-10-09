@@ -5,10 +5,8 @@ import Button from './common/Button';
 
 class Deck extends Component {
   static navigationOptions = ({ navigation }) => {
-    const { title } = navigation.state.params;
-
     return{
-      title: `Deck - ${title}`
+      title: `Deck`
     }
   }
 
@@ -18,18 +16,23 @@ class Deck extends Component {
 
   startQuiz = () => {
     const { deck } = this.state;
+    const { title } = this.props.navigation.state.params;
 
     if (deck.questions.length === 0) {
       return Alert.alert('You must add a card first!');
     }
+
+    this.props.navigation.navigate(
+        'Quiz',
+        { title }
+      )
   }
 
   newCard = () => {
     const { title } = this.props.navigation.state.params;
 
     this.props.navigation.navigate(
-        'NewCard',
-        { title }
+        'NewCard'
       )
   }
 

@@ -9,7 +9,9 @@ import Home from './components/Home';
 import NewDeck from './components/NewDeck';
 import NewCard from './components/NewCard';
 import Deck from './components/Deck';
+import Quiz from './components/Quiz';
 import reducer from './reducers';
+import { setLocalNotification } from './utils/helpers';
 
 const Tabs = TabNavigator({
   Home: {
@@ -24,7 +26,7 @@ const Tabs = TabNavigator({
     screen: NewDeck,
     navigationOptions: {
       tabBarLabel: 'New Deck',
-      tabBarIcon: ({ tintColor }) => <FontAwesome name='plus' size={30} />
+      tabBarIcon: ({ tintColor }) => <FontAwesome name='plus' size={30} color={tintColor} />
     }
   },
 }, {
@@ -33,6 +35,7 @@ const Tabs = TabNavigator({
     header: null
   },
   tabBarOptions:{
+    showIcon: true,
     style: {
       height: 56,
       shadowOffset: {
@@ -46,12 +49,14 @@ const Tabs = TabNavigator({
 });
 
 const MainNavigator = StackNavigator({
-  Main: {
-    screen: Tabs,
-  },
-  Deck: { screen: Deck},
-  NewCard: { screen: NewCard}
-});
+    Main: {
+      screen: Tabs,
+    },
+    Deck: { screen: Deck},
+    NewCard: { screen: NewCard},
+    Quiz: { screen: Quiz},
+  }
+);
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -63,6 +68,11 @@ const store = createStore(
 );
 
 export default class App extends React.Component {
+
+  componentDidMount() {
+    setLocalNotification();
+  }
+
   render() {
     return (
     <Provider store={store}>

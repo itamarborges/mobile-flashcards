@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, FlatList } from 'react-native';
 import { connect } from 'react-redux';
-import { getDecks } from '../utils/api';
+import { clear } from '../utils/api';
 import { loadAllDecks } from '../actions';
 import { sortString } from '../utils/helpers';
 import CardDeck from './CardDeck';
@@ -21,8 +21,7 @@ class Home extends Component {
   }
 
   pressDeck = (item) => {
-    this.props.navigation.navigate(
-        'Deck',
+    this.props.navigation.navigate('Deck',
         { title: item.title }
       )
   }

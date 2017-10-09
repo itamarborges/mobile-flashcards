@@ -2,12 +2,7 @@ import { AsyncStorage } from 'react-native';
 
 export const DECKS_STORAGE_KEY = 'MobileFlashcards:deck';
 
-function createNewCard(question, answer) {
-  return {
-    question,
-    answer
-  }
-}
+
 export function submitNewDeck(deck) {
   return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
     [deck.title]: deck,
@@ -18,11 +13,14 @@ export function getDecks() {
     .then(res => JSON.parse(res));
 }
 
-export function submitNewCard(title, question, answer) {
-  const card = createNewCard(question, answer);
-  getDecks()
+export function submitNewCard(title, card) {
+  return getDecks()
   .then( decks => {
     decks[title].questions.push(card);
-    AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify(decks))
+     AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify(decks));
   });
+}
+
+export function clear() {
+  return AsyncStorage.clear(DECKS_STORAGE_KEY);
 }

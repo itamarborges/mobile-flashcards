@@ -1,6 +1,7 @@
 import {
   LOAD_DECKS,
-  ADD_DECK
+  ADD_DECK,
+  ADD_CARD
 } from './types';
 import * as DecksAPI from '../utils/api';
 
@@ -46,13 +47,25 @@ const addDeck = (dispatch, deck) => {
   });
 }
 
-
-export const newCard = (title, question, answer) => (dispatch) => {
+export const newCard = (title, question, answer) => {
   return (dispatch) => {
-    DecksAPI.submitNewCard(title, question, answer)
-    .then(loadAllDecks)
-    .catch((error) => {
-      console.log(error);
-    });
+    const card = {
+      question,
+      answer
+    };
+    addCard(dispatch, title, card);
+
+    DecksAPI.submitNewCard(title, card)
+      .catch((error) => {
+        console.log(error);
+      });
   };
 };
+
+const addCard = (dispatch, title, card) => {
+  dispatch({
+    type: ADD_CARD,
+    title,
+    card
+  });
+}

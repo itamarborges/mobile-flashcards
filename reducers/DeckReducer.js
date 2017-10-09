@@ -1,6 +1,7 @@
 import {
   LOAD_DECKS,
-  ADD_DECK
+  ADD_DECK,
+  ADD_CARD
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -20,6 +21,20 @@ export default (state = INITIAL_STATE, action) => {
             [action.deck.title]: action.deck
           }
         };
+        case ADD_CARD:
+
+          const arrQuestions = state['allDecks'][action.title]['questions'];
+          arrQuestions.push(action.card);
+
+          return { ...state,
+            allDecks: {
+              ...state['allDecks'],
+              [action.title]: {
+                ...state['allDecks'][action.title],
+                questions: arrQuestions
+              }
+            }
+          };
       default:
         return state;
     }

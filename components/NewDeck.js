@@ -20,11 +20,10 @@ class NewDeck extends Component {
     if (Helper.stringIsEmpty(title)) {
       Alert.alert('You must fill the name for a new deck!');
     } else {
-
       this.props.newDeck(title);
       this.clearFields();
 
-      this.props.navigation.navigate('Home' );
+      this.props.navigation.goBack();
     }
   }
 
