@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, StyleSheet, Alert, KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
-import { NavigationActions } from 'react-navigation';
 import Button from './common/Button';
 import { submitNewDeck } from '../utils/api';
 import * as Helper from '../utils/helpers';
@@ -35,10 +34,25 @@ class Quiz extends Component {
 
     const rightAnswers = rightAnswer ? this.state.rightAnswers + 1 : this.state.rightAnswers;
 
+    //Quiz has finished!!!
+    if (this.state.currentQuestion === this.deck.questions.length) {
+
+      Helper.clearLocalNotification()
+      .then(Helper.setLocalNotification());
+    }
+
     this.setState({
       currentQuestion: this.state.currentQuestion + 1,
       showQuestion: true,
       rightAnswers,
+    })
+  }
+
+  resetQuiz = () => {
+    this.setState({
+      currentQuestion: 1,
+      showQuestion: true,
+      rightAnswers: 0,
     })
   }
 
@@ -59,7 +73,12 @@ class Quiz extends Component {
           <Button
             btnStyle={btnStyle}
             onPress={this.goBack} >
-            Go Back
+            Back to Deck
+          </Button>
+          <Button
+            btnStyle={btnStyle}
+            onPress={this.resetQuiz} >
+            Restart Quiz
           </Button>
         </View>
       )

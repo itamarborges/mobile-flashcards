@@ -11,19 +11,14 @@ class Home extends Component {
     loading: false,
   }
 
-  componentWillMount() {
-    //this.setState({ loading: true });
-  }
-
   componentDidMount() {
-    this.props.loadAllDecks()
-  //  .then(this.setState({ loading: false}));
+    this.props.loadAllDecks();
   }
 
   pressDeck = (item) => {
     this.props.navigation.navigate('Deck',
         { title: item.title }
-      )
+      );
   }
 
 
@@ -38,9 +33,6 @@ class Home extends Component {
    _keyExtractor = (item, index) => item.title;
 
   render() {
-    // if (this.state.loading) {
-    //   return <ActivityIndicator style={{ marginTop: 30 }} />
-    // }
 
     const { allDecks } = this.props.decks;
     const arrDecks = Object.values(allDecks);

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, StyleSheet, Alert, KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation';
 import Button from './common/Button';
 import { submitNewDeck } from '../utils/api';
 import * as Helper from '../utils/helpers';
@@ -23,7 +24,21 @@ class NewDeck extends Component {
       this.props.newDeck(title);
       this.clearFields();
 
-      this.props.navigation.goBack();
+      this.props.navigation.dispatch(
+            NavigationActions.reset({
+              index: 1,
+              actions: [
+                NavigationActions.navigate({
+                    routeName: 'Main',
+                  }),
+                NavigationActions.navigate({
+                    routeName: 'Deck',
+                    params: { title: title },
+                }
+              )]
+            })
+          );
+
     }
   }
 

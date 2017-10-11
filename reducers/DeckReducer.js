@@ -22,7 +22,6 @@ export default (state = INITIAL_STATE, action) => {
           }
         };
         case ADD_CARD:
-
           const arrQuestions = state['allDecks'][action.title]['questions'];
           arrQuestions.push(action.card);
 

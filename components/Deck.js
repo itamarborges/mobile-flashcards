@@ -32,7 +32,8 @@ class Deck extends Component {
     const { title } = this.props.navigation.state.params;
 
     this.props.navigation.navigate(
-        'NewCard'
+        'NewCard',
+        { title }
       )
   }
 
