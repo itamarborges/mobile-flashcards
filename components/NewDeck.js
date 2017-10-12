@@ -53,12 +53,12 @@ class NewDeck extends Component {
         <TextInput
           value={this.state.title}
           autoCorrect={false}
-          style={{height: 40, marginBottom: 20}}
+          style={{height: 40, marginBottom: 20 }}
           placeholder="Type the name of your new deck"
           onChangeText={(title) => this.setState({title})}
         />
       <Button onPress={this.submitNewDeck}>
-        SUBMIT
+        Create Deck
       </Button>
 
       </KeyboardAvoidingView>
@@ -71,8 +71,10 @@ class NewDeck extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 40,
+    marginLeft: 40,
+    marginRight: 40,
     justifyContent: 'center',
-    alignItems: 'center'
   }
 })
 

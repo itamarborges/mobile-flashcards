@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, StyleSheet, Alert, KeyboardAvoidingView } from 'react-native';
+import { Text, TextInput, StyleSheet, Alert, KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
 import Button from './common/Button';
 import * as Helper from '../utils/helpers';
@@ -48,7 +48,7 @@ class NewCard extends Component {
     const { container, headLine, textArea, question } = styles;
 
     return(
-      <View
+      <KeyboardAvoidingView
         behavior="padding"
         style={container} >
 
@@ -74,7 +74,7 @@ class NewCard extends Component {
           SUBMIT
         </Button>
 
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 

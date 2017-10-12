@@ -7,6 +7,23 @@ export function stringIsEmpty(text) {
   return text.trim().length===0;
 }
 
+function createNotification() {
+  return {
+    title: 'A quiz is waiting for you!',
+    body: "Don't forget to complete a quiz today!",
+    ios: {
+      sound: true,
+    },
+    android: {
+      sound: true,
+      priority: 'high',
+      sticky: false,
+      vibrate: true
+    }
+  }
+
+}
+
 export function clearLocalNotification () {
   return AsyncStorage.removeItem(NOTIFICATION_KEY)
     .then(Notifications.cancelAllScheduledNotificationsAsync)
@@ -23,9 +40,9 @@ export function setLocalNotification(){
               Notifications.cancelAllScheduledNotificationsAsync();
 
               let tomorrow = new Date();
-              tomorrow.setDate(tomorrow.getDate());
+              tomorrow.setDate(tomorrow.getDate() + 1);
               tomorrow.setHours(10);
-              tomorrow.setMinutes(2);
+              tomorrow.setMinutes(0);
 
               Notifications.scheduleLocalNotificationAsync(
                 createNotification(),

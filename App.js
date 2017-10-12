@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { createStore, applyMiddleware, compose } from 'redux';
@@ -37,7 +37,7 @@ const Tabs = TabNavigator({
   tabBarOptions:{
     showIcon: true,
     style: {
-      height: 56,
+      height: 60,
       shadowOffset: {
         width: 0,
         height: 3
@@ -87,5 +87,6 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: StatusBar.currentHeight
   },
 });
