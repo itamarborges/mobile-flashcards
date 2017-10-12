@@ -89,7 +89,7 @@ class Quiz extends Component {
         <View style={container}>
           <Text>{currentQuestion} of {questions.length}</Text>
           <Text style={bigTextStyle}>{questions[currentQuestion-1].question}</Text>
-          <Button btnStyle={btnStyle} onPress={this.showAnswer}>Show the answer</Button>
+          <Button btnStyle={btnStyle} onPress={this.showAnswer}>Show Answer</Button>
         </View>
       )
     }

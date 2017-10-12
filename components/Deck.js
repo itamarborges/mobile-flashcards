@@ -54,13 +54,12 @@ class Deck extends Component {
         <Text style={textStyle}>{deck.questions.length === 1
                                  ? '1 card'
                                  : `${deck.questions.length} cards`}</Text>
-        <Button btnStyle={btnStyle} onPress={this.newCard}>
-          Add Card
-        </Button>
         <Button btnStyle={btnStyle} onPress={this.startQuiz}>
-          Start Quiz
+          Start a Quiz
         </Button>
-
+        <Button btnStyle={btnStyle} onPress={this.newCard}>
+          Create New Question
+        </Button>
       </View>
     )
   }

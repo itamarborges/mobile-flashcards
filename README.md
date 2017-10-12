@@ -8,7 +8,7 @@ To run this code, you need to run:
 
 npm start
 
-And you're going to see this app running.
+And you're going to see options about where to run this app.
 
 This app was tested using the devices with the following setup:
 
