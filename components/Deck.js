@@ -15,8 +15,8 @@ class Deck extends Component {
   }
 
   startQuiz = () => {
-    const { deck } = this.state;
     const { title } = this.props.navigation.state.params;
+    const deck = this.props.decks.allDecks[title];
 
     if (deck.questions.length === 0) {
       return Alert.alert('You must add a card first!');
@@ -37,16 +37,10 @@ class Deck extends Component {
       )
   }
 
-  componentWillMount() {
-    const { allDecks } = this.props.decks;
-    const { title } = this.props.navigation.state.params;
-
-    this.setState({deck : allDecks[title]});
-  }
-
   render() {
     const { containerStyle, textStyle, titleTextStyle, btnStyle } = styles;
-    const { deck } = this.state;
+    const { title } = this.props.navigation.state.params;
+    const deck = this.props.decks.allDecks[title];
 
     return (
       <View style={containerStyle}>
